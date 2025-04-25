@@ -1,0 +1,22 @@
+.hex-row {
+  display: flex;
+  justify-content: start;
+  gap: calc(var(--hex-width) * (0.5 + 2 * var(--hex-horizontal-gap-ratio)));
+  height: var(--hex-height);
+  position: relative;
+  z-index: 1;
+}
+
+.hex-row.offset {
+  --offset-left: calc(
+    var(--hex-width) * (0.75 + var(--hex-horizontal-gap-ratio))
+  );
+  --offset-top: calc(
+    var(--hex-height) * (-0.5 + var(--hex-vertical-gap-ratio) * 0.5)
+  );
+
+  margin-left: var(--offset-left);
+  margin-top: var(--offset-top);
+  margin-bottom: var(--offset-top);
+  z-index: 2;
+}

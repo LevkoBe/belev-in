@@ -1,0 +1,10 @@
+.hex-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  padding-top: calc(var(--hex-height) * 1);
+  padding-bottom: calc(var(--hex-height) * 1);
+}
