@@ -1,5 +1,5 @@
 :root {
-  --hex-width: 20vw;
+  --hex-width: clamp(13rem, 30vw, 20rem);
   --hex-height: calc(var(--hex-width) * 0.866); /* (√3/2) */
   --hex-vertical-gap-ratio: 0.1;
   --hex-horizontal-gap-ratio: 0.075;

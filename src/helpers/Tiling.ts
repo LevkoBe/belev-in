@@ -16,10 +16,7 @@ export const calculateRowCount = (total: number, perRow: number) => {
 
 export const calculateHexesPerRow = (): number => {
   const rootStyles = getComputedStyle(document.documentElement);
-  const baseHexWidth =
-    (window.innerWidth *
-      parseFloat(rootStyles.getPropertyValue("--hex-width"))) /
-    100;
+  const baseHexWidth = parseFloat(getHexWidthPx());
   const gapRatio =
     parseFloat(rootStyles.getPropertyValue("--hex-horizontal-gap-ratio")) + 0.5;
 
@@ -29,16 +26,34 @@ export const calculateHexesPerRow = (): number => {
   const hexCount = Math.floor(containerWidth / effectiveHexWidth);
 
   console.log(window.innerWidth, effectiveHexWidth);
-  return Math.max(2, hexCount);
+  return Math.max(1, hexCount);
 };
+
+function getHexWidthPx() {
+  const element = document.documentElement;
+  const computedStyle = getComputedStyle(element);
+  const hexWidth = computedStyle.getPropertyValue("--hex-width").trim();
+
+  const temp = document.createElement("div");
+  temp.style.width = hexWidth;
+  document.body.appendChild(temp);
+
+  const pixelValue = getComputedStyle(temp).width;
+
+  document.body.removeChild(temp);
+
+  return pixelValue;
+}
 
 export const splitInAlternatingChunks = <T>(arr: T[], n: number): T[][] => {
   const result: T[][] = [];
-  const perChunk = n - 1;
+  let perChunk = Math.max(n, 1);
+  let counter = 0;
+  console.log(n);
 
-  for (let i = 0; i < arr.length; i += perChunk + 1) {
-    if (i % 2 === 0) result.push(arr.slice(i, i + perChunk));
-    else result.push(arr.slice(i, i + perChunk + 1));
+  for (let i = 0; i < arr.length; i += perChunk) {
+    perChunk += counter++ % 2 === 0 ? -1 : 1;
+    result.push(arr.slice(i, i + perChunk));
   }
 
   return result;

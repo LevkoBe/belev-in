@@ -79,7 +79,7 @@
 }
 
 .hex-content h2 {
-  font-size: calc(var(--hex-height) * 0.13);
+  font-size: calc(var(--hex-height) * 0.095);
 }
 
 .hex-content p,
